@@ -44,6 +44,11 @@ const useStyles = makeStyles((theme) => ({
     button: {
         margin: theme.spacing(0.5, 0),
     },
+    btn: {
+        minWidth: '15vw',
+        fontSize: 'small',
+        padding: '5px',
+    },
 }));
 
 const top100Films = [
@@ -117,6 +122,10 @@ const NewTreat = inject("MainStore", "InputStore")(observer((props) => {
         setRight(not(right, rightChecked));
         setChecked(not(checked, rightChecked));
     };
+
+    const setNewTreat = () => {
+        props.MainStore.goNext()
+    }
 
     const customList = (title, items) => (
         <Card>
@@ -211,7 +220,10 @@ const NewTreat = inject("MainStore", "InputStore")(observer((props) => {
                 </Grid>
                 <Grid item>{customList('Chosen', right)}</Grid>
             </Grid>
-        
+
+            <Button onClick={setNewTreat} className={classes.btn} variant="contained" color="primary">
+                Finish
+            </Button>
             
         </div>
     )

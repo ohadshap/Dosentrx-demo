@@ -34,15 +34,23 @@ const useStyles = makeStyles((theme) => ({
 const Summary = inject("MainStore", "InputStore")(observer((props) => { 
     const classes = useStyles();
 
+    const confirm = () => {
+        props.MainStore.goHome()
+    }
+
     return (
         <div className={classes.container}>
             Im summary
-            <TextField  className={classes.root} label="Patient's ID" />
+            {/* <TextField  className={classes.root} label="Patient's ID" />
             <TextField  className={classes.root} label="Patient's Name" />
-            <TextField  className={classes.root} label="Patient's Phone Number" />
-            
-            <Button className={classes.btn} variant="contained" color="primary">
-                Therapy
+            <TextField  className={classes.root} label="Patient's Phone Number" /> */}
+            <div className={classes.root}>
+                <p>Patient Id: {props.MainStore.PatientId}</p>
+                <p>Patient's Name: {props.MainStore.PatientName}</p>
+                <p>Patient Phone Number: {props.MainStore.PatientPhone}</p>
+            </div>
+            <Button onClick={confirm} className={classes.btn} variant="contained" color="primary">
+                Confirm
             </Button>
         
             

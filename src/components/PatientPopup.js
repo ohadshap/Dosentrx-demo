@@ -15,9 +15,9 @@ const useStyles = makeStyles((theme) => ({
 
     root: {
         display: 'block',
-        textAlign: 'center',
         paddingBottom: '0px',
         '& > *': {
+            textAlign: 'center',
             position: 'inherit',
         }
     },
@@ -33,15 +33,45 @@ const useStyles = makeStyles((theme) => ({
 
 const PatientPopup = inject("MainStore", "InputStore")(observer((props) => { 
     const classes = useStyles();
+    const [name, setName] = useState(props.InputStore.name)
+    const [num, setNum] = useState(props.InputStore.num)
+    const [pId, setPid] = useState(props.InputStore.pId)
+
+    const inputHandler = (e) => {
+        // console.log(e.target.name)
+        // console.log(e.target.value)
+        const inp = props.InputStore
+        e.target.name === 'name' ?
+        inp.handleInput(e.target.name, e.target.value) &&
+        setName(e.target.value) :
+        e.target.name === 'pId' ? 
+        inp.handleInput(e.target.name, e.target.value) &&
+        setPid(e.target.value) :
+        inp.handleInput(e.target.name, e.target.value) &&
+        setNum(e.target.value)
+    }
+
+    const setNewPat = () => {
+        props.MainStore.setPatient(props.InputStore.pId, props.InputStore.name, props.InputStore.num)
+        props.MainStore.goNext()
+    }
 
     return (
         <div className={classes.container}>
             Im Patient Popup
-            <TextField  className={classes.root} label="Patient's ID" />
-            <TextField  className={classes.root} label="Patient's Name" />
-            <TextField  className={classes.root} label="Patient's Phone Number" />
+            <TextField name="pId" type="number" inputProps={{min: 0, style: { textAlign: 'center' }}}
+                value={pId} onChange={inputHandler}  className={classes.root} 
+                label="Patient's ID" />
+
+            <TextField name="name" type="text" inputProps={{min: 0, style: { textAlign: 'center' }}}
+                value={name} onChange={inputHandler}  className={classes.root} 
+                label="Patient's Name" />
+
+            <TextField name="num" type="text" inputProps={{min: 0, style: { textAlign: 'center' }}}
+                value={num} onChange={inputHandler}  className={classes.root} 
+                label="Patient's Phone Number" />
             
-            <Button className={classes.btn} variant="contained" color="primary">
+            <Button onClick={setNewPat} className={classes.btn} variant="contained" color="primary">
                 Therapy
             </Button>
 
