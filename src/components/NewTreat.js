@@ -178,7 +178,7 @@ const NewTreat = inject("MainStore", "InputStore")(observer((props) => {
                 className={classes.autocomp}
                 getOptionLabel={(option) => option.title}
                 style={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Combo box" variant="outlined" />}
+                renderInput={(params) => <TextField {...params} label="Disease" variant="outlined" />}
             />
 
             <Autocomplete
@@ -186,11 +186,19 @@ const NewTreat = inject("MainStore", "InputStore")(observer((props) => {
                 className={classes.autocomp}
                 getOptionLabel={(option) => option.title}
                 style={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Combo box" variant="outlined" />}
+                renderInput={(params) => <TextField {...params} label="Medication" variant="outlined" />}
+            />
+
+            <Autocomplete
+                options={top100Films}
+                className={classes.autocomp}
+                getOptionLabel={(option) => option.title}
+                style={{ width: 300 }}
+                renderInput={(params) => <TextField {...params} label="Tips" variant="outlined" />}
             />
 
             <Grid container spacing={2} justify="center" alignItems="center" className={classes.root}>
-                <Grid item>{customList('Choices', left)}</Grid>
+                <Grid item>{customList('Symptoms', left)}</Grid>
                 
                 <Grid item>
                     <Grid container direction="column" alignItems="center">
@@ -220,6 +228,10 @@ const NewTreat = inject("MainStore", "InputStore")(observer((props) => {
                 </Grid>
                 <Grid item>{customList('Chosen', right)}</Grid>
             </Grid>
+
+            <Button onClick={setNewTreat} className={classes.btn} variant="contained" color="primary">
+                Add Medication
+            </Button>
 
             <Button onClick={setNewTreat} className={classes.btn} variant="contained" color="primary">
                 Finish
