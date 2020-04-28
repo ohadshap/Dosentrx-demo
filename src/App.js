@@ -3,6 +3,7 @@ import './App.css';
 import { observer } from 'mobx-react'
 import PatientPopup from './components/PatientPopup';
 import NewTreat from './components/NewTreat'
+import Summary from './components/Summary';
 
 @observer
 class App extends Component {
@@ -10,12 +11,11 @@ class App extends Component {
     return (
       <div className="App">
         Im App
-        
-        <NewTreat />
+        <Summary />
       </div>
     );
   }
 }
 
 export default App;
-//<PatientPopup />
+//<PatientPopup /> <NewTreat />
