@@ -1,0 +1,44 @@
+[
+    {   "title": "Heart Disease", 
+        "kinds": [
+            {
+                "name": "CHF", 
+                "meds": [{"name": "Lasix"}, {"name":"Digoxin"}, {"name":"Entresto"}], 
+                "sympt": [
+                    {"name": "Irregular heartbeat", "freq": [2, "W"]},
+                    {"name": "Cough", "freq": [2, "W"]},
+                    {"name": "Rapid and Strong heartbeat", "freq": [2, "W"]},
+                    {"name": "Dyspnea", "freq": [2, "W"]},
+                    {"name": "Unable to lie down flat, and need a few pillows", "freq": [3, "W"]}
+                ]
+            },
+            {"name":"MI", "meds":[], "sympt": []}, 
+            {"name":"CABG", "meds":[], "sympt": []}
+        ]
+    },
+    {
+        "title": "Musculoskeletal", 
+        "kinds": [
+            {
+                "name": "Rheumatoid Arthrisis", 
+                "meds": [{"name":"Xeljanz"}, {"name":"Otezla"}], 
+                "sympt": [
+                    {"name": "Difficulty in Breathing", "freq": [3, "W"]},
+                    {"name": "Rash", "freq": [2, "W"]},
+                    {"name": "Diarrhea", "freq": [2, "M"]},
+                    {"name": "Indigestion or heartburn", "freq": [2, "M"]},
+                    {"name": "Loss of appetite", "freq": [2, "M"]},
+                    {"name": "Loss of appetite", "freq": [1, "W"]}
+                ]
+            }, 
+            {"name":"Psoriasis", "meds":[], "sympt": []}
+        ]
+    },
+    {
+        "title": "Hepatitis", 
+        "kinds": [
+            {"name": "Hepatitis C", "meds": [], "sympt": []}, 
+            {"name":"Hepatitis B", "meds":[], "sympt": []}
+        ] 
+    } 
+]

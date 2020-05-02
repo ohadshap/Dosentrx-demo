@@ -6,6 +6,9 @@ export class Inputs {
     @observable num
     @observable pId
 
+    @observable disease
+    @observable diseaseKind
+
     @action handleInput = (name, val) => {
         // console.log(name);
         // console.log(val);

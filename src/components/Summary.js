@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-// <form className={classes.root} noValidate autoComplete="off"></form>
 
 const Summary = inject("MainStore", "InputStore")(observer((props) => { 
     const classes = useStyles();

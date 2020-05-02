@@ -38,8 +38,6 @@ const PatientPopup = inject("MainStore", "InputStore")(observer((props) => {
     const [pId, setPid] = useState(props.InputStore.pId)
 
     const inputHandler = (e) => {
-        // console.log(e.target.name)
-        // console.log(e.target.value)
         const inp = props.InputStore
         e.target.name === 'name' ?
         inp.handleInput(e.target.name, e.target.value) &&
