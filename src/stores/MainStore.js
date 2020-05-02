@@ -40,6 +40,7 @@ export class MainStore {
         for(let kind of this.curKinds) {
             if(kind.name === kindName) {
                 this.relevantKind = kind
+                console.log(kind)
                 return kind
             }
         }

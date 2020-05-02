@@ -75,12 +75,12 @@ const Kind = inject("MainStore", "InputStore")(observer((props) => {
 
             {show ?
             <Medication key={diseaseData.name} data={diseaseData}/> :
-            null
-        }
-            
             <Button onClick={setKind} className={classes.btn} variant="contained" color="primary">
                 Select Kind
             </Button>
+            }
+            
+            
         
             
         </div>

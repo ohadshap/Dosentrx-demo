@@ -85,7 +85,9 @@ const Medication = inject("MainStore", "InputStore")(observer((props) => {
     }
 
     const setNewTreat = () => {
-        props.MainStore.addMed()
+        console.log(med)
+        console.log(props.InputStore.med)
+        props.MainStore.addMed(med)
         props.MainStore.goNext()
     }
 
@@ -174,7 +176,7 @@ const Medication = inject("MainStore", "InputStore")(observer((props) => {
                 getOptionLabel={(option) => option.name}
                 style={{ width: 300 }}
                 onSelect={inputHandler}
-                renderInput={(params) => <TextField {...params} onChange={inputHandler} label="Medication" variant="outlined" />}
+                renderInput={(params) => <TextField name="med" {...params} value={med} onChange={inputHandler} label="Medication" variant="outlined" />}
             />
 
             {/* <Autocomplete
@@ -221,9 +223,12 @@ const Medication = inject("MainStore", "InputStore")(observer((props) => {
 
             {right.map(s => <p>{s.name} {s.freq[0]} / {s.freq[1]}</p>)}
 
+            {right.length ?
             <Button onClick={setNewTreat} className={classes.btn} variant="contained" color="primary">
                 Enter Chosen Symptoms
-            </Button>
+            </Button> :
+            null
+            }
         </div>
     )
 }))
