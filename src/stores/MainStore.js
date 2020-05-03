@@ -1,5 +1,6 @@
 import { observable, action, computed } from 'mobx';
 import data from './Disease.json'
+import tips from './Tips.json'
 
 export class MainStore {
     @observable Diseases = [...data]
@@ -12,6 +13,8 @@ export class MainStore {
     @observable symptoms
     @observable allMeds = ["Xeljanz", "Otezla", "Lasix", "Digoxin", "Entresto"]
     @observable Meds = []
+    @observable allTips = [...tips]
+    @observable Tips = []
 
     @action setPatient = (id, name, num) => {
         this.PatientId = id
@@ -24,6 +27,13 @@ export class MainStore {
     }
 
     @action goHome = () => {
+        this.curKinds = null
+        this.relevantKind = null
+        this.PatientId = null
+        this.PatientName = null
+        this.PatientPhone = null
+        this.Meds = []
+        this.Tips = []
         this.stage = 0
     }
 
@@ -54,6 +64,13 @@ export class MainStore {
         if(this.allMeds.includes(newMed) ){
             console.log(newMed)
             this.Meds.push(newMed)
+        }
+    }
+
+    @action addTip = (newTip) => {
+        if(this.allTips.includes(newTip) ){
+            console.log(newTip)
+            this.Tips.push(newTip)
         }
     }
 

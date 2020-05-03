@@ -74,6 +74,8 @@ const Medication = inject("MainStore", "InputStore")(observer((props) => {
     const [right, setRight] = useState([]);
     const [med, setMed] = useState(' ');
     const [show, setShow] = useState(false)
+    const [showSymp, setShowSymp] = useState(false)
+    const [tip, setTip] = useState(' ');
 
     const leftChecked = intersection(checked, left);
     const rightChecked = intersection(checked, right);
@@ -81,16 +83,26 @@ const Medication = inject("MainStore", "InputStore")(observer((props) => {
     const inputHandler = (e) => {
         const inp = props.InputStore
         inp.handleInput(e.target.name, e.target.value)
-        setMed(e.target.value)
-        props.MainStore.addMed(e.target.value)
+        if(e.target.name === "med") {
+            setMed(e.target.value) 
+        } else {
+            setTip(e.target.value) 
+        }
     }
 
-    const setNewTreat = () => {
+    const addNewMed = () => {
+        console.log(`add med`)
+        setShow(true)
+    }
+
+    const addDetails = () => {
+        console.log(tip)
+        console.log(props.InputStore.tip)
         console.log(med)
         console.log(props.InputStore.med)
-        props.MainStore.addMed(med)
-        
-        setShow(true)
+        props.MainStore.addMed(med) 
+        props.MainStore.addTip(tip)
+        setShowSymp(true)
     }
 
     const handleToggle = (value) => () => {
@@ -181,15 +193,16 @@ const Medication = inject("MainStore", "InputStore")(observer((props) => {
                 renderInput={(params) => <TextField name="med" {...params} value={med} onChange={inputHandler} label="Medication" variant="outlined" />}
             />
 
-            {/* <Autocomplete
-                options={top100Films}
+            <Autocomplete
+                options={props.MainStore.allTips}
                 className={classes.autocomp}
-                getOptionLabel={(option) => option.title}
+                getOptionLabel={(option) => option}
                 style={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Tips" variant="outlined" />}
-            /> */}
+                onSelect={inputHandler}
+                renderInput={(params) => <TextField name="tip" {...params} onChange={inputHandler} label="Tips" variant="outlined" />}
+            />
 
-            <TextField  className={classes.autocomp} label="Tips" variant="outlined"/>
+            {/* <TextField  className={classes.autocomp} label="Tips" variant="outlined"/> */}
 
             <Grid container spacing={2} justify="center" alignItems="center" className={classes.root}>
                 <Grid item>{customList('Symptoms', left)}</Grid>
@@ -223,13 +236,18 @@ const Medication = inject("MainStore", "InputStore")(observer((props) => {
                 <Grid item>{customList('Chosen Symptoms', right)}</Grid>
             </Grid>
 
-            {right.map(s => <p>{s.name} {s.freq[0]} / {s.freq[1]}</p>)}
+            {showSymp ?
+                right.map(s => <p>{s.name} {s.freq[0]} / {s.freq[1]}</p>) :
+                null
+            }
 
-            {right.length && !show?
-            <Button onClick={setNewTreat} className={classes.btn} variant="contained" color="primary">
+            {right.length && !show && showSymp ?
+            <Button onClick={addNewMed} className={classes.btn} variant="contained" color="primary">
                 Add Medecation
             </Button> :
-            null
+             <Button onClick={addDetails} className={classes.btn} variant="contained" color="primary">
+             Enter Details
+         </Button>
             }
 
             {show ?

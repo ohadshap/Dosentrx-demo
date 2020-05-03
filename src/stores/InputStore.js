@@ -9,9 +9,12 @@ export class Inputs {
     @observable disease
     @observable diseaseKind
 
+    @observable med
+    @observable tip
+
     @action handleInput = (name, val) => {
-        // console.log(name);
-        // console.log(val);
+        console.log(name);
+        console.log(val);
         this[name] = val
     }
 }

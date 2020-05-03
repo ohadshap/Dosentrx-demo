@@ -35,11 +35,18 @@ const Summary = inject("MainStore", "InputStore")(observer((props) => {
 
     const confirm = () => {
         props.MainStore.goHome()
+        props.InputStore.name = null
+        props.InputStore.num = null
+        props.InputStore.pId = null
+        props.InputStore.disease = null
+        props.InputStore.diseaseKind = null
+        props.InputStore.med = null
+        props.InputStore.tip = null
     }
 
     return (
         <div className={classes.container}>
-            Im summary
+            <b>Summary:</b>
             {/* <TextField  className={classes.root} label="Patient's ID" />
             <TextField  className={classes.root} label="Patient's Name" />
             <TextField  className={classes.root} label="Patient's Phone Number" /> */}
@@ -47,6 +54,7 @@ const Summary = inject("MainStore", "InputStore")(observer((props) => {
                 <p>Patient Id: {props.MainStore.PatientId}</p>
                 <p>Patient's Name: {props.MainStore.PatientName}</p>
                 <p>Patient Phone Number: {props.MainStore.PatientPhone}</p>
+                <p>Medications: {props.MainStore.Meds.map((m,i) => {return <p>{`${m}: Tip: ${props.MainStore.Tips[i]}`}</p>})}</p>
             </div>
             <Button onClick={confirm} className={classes.btn} variant="contained" color="primary">
                 Confirm
