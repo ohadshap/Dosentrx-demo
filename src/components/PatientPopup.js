@@ -56,7 +56,7 @@ const PatientPopup = inject("MainStore", "InputStore")(observer((props) => {
 
     return (
         <div className={classes.container}>
-            Im Patient Popup
+            {/* Im Patient Popup */}
             <TextField name="pId" type="number" inputProps={{min: 0, style: { textAlign: 'center' }}}
                 value={pId} onChange={inputHandler}  className={classes.root} 
                 label="Patient's ID" />

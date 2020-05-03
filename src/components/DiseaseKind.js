@@ -61,7 +61,7 @@ const Kind = inject("MainStore", "InputStore")(observer((props) => {
 
     return (
         <div className={classes.container}>
-            Im Kind
+            {/* Im Kind */}
 
             <Autocomplete
                 options={props.kinds}

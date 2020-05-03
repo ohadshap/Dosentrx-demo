@@ -58,7 +58,7 @@ const NewTreat = inject("MainStore", "InputStore")(observer((props) => {
 
     return (
         <div className={classes.container}>
-            Im New Treat
+            {/* Im New Treat */}
             <Autocomplete
                 options={props.MainStore.Diseases}
                 className={classes.autocomp}

@@ -73,6 +73,7 @@ const Medication = inject("MainStore", "InputStore")(observer((props) => {
     const [left, setLeft] = useState(props.data.sympt);
     const [right, setRight] = useState([]);
     const [med, setMed] = useState(' ');
+    const [show, setShow] = useState(false)
 
     const leftChecked = intersection(checked, left);
     const rightChecked = intersection(checked, right);
@@ -88,7 +89,8 @@ const Medication = inject("MainStore", "InputStore")(observer((props) => {
         console.log(med)
         console.log(props.InputStore.med)
         props.MainStore.addMed(med)
-        props.MainStore.goNext()
+        
+        setShow(true)
     }
 
     const handleToggle = (value) => () => {
@@ -168,7 +170,7 @@ const Medication = inject("MainStore", "InputStore")(observer((props) => {
 
     return (
         <div className={classes.container}>
-            Im Medication
+            {/* Im Medication */}
 
             <Autocomplete
                 options={props.data.meds}
@@ -223,10 +225,15 @@ const Medication = inject("MainStore", "InputStore")(observer((props) => {
 
             {right.map(s => <p>{s.name} {s.freq[0]} / {s.freq[1]}</p>)}
 
-            {right.length ?
+            {right.length && !show?
             <Button onClick={setNewTreat} className={classes.btn} variant="contained" color="primary">
-                Enter Chosen Symptoms
+                Add Medecation
             </Button> :
+            null
+            }
+
+            {show ?
+            <Medication data={props.data}/> :
             null
             }
         </div>

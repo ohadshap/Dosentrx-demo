@@ -11,7 +11,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        Im App
+        {/* Im App */}
         {
           this.props.MainStore.stage === 0 ? <PatientPopup /> :
           this.props.MainStore.stage === 1 ? <NewTreat /> :
