@@ -13,8 +13,6 @@ export class Inputs {
     @observable tip
 
     @action handleInput = (name, val) => {
-        console.log(name);
-        console.log(val);
         this[name] = val
     }
 }

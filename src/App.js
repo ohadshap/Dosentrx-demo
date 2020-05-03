@@ -4,6 +4,7 @@ import { observer, inject } from 'mobx-react'
 import PatientPopup from './components/PatientPopup';
 import NewTreat from './components/NewTreat'
 import Summary from './components/Summary';
+import Base from './components/Base';
 
 @inject("MainStore")
 @observer
@@ -13,8 +14,9 @@ class App extends Component {
       <div className="App">
         {/* Im App */}
         {
-          this.props.MainStore.stage === 0 ? <PatientPopup /> :
-          this.props.MainStore.stage === 1 ? <NewTreat /> :
+          this.props.MainStore.stage === 0 ? <Base /> :
+          this.props.MainStore.stage === 1 ? <PatientPopup /> :
+          this.props.MainStore.stage === 2 ? <NewTreat /> :
           <Summary />
         }
       </div>
