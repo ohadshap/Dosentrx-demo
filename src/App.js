@@ -13,7 +13,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import PatientPopup from './components/PatientPopup';
 import NewTreat from './components/NewTreat'
 import Summary from './components/Summary';
-import pic from './assets/img/background.jpg'
+import pic from './assets/img/background.png'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,9 +36,9 @@ const useStyles = makeStyles((theme) => ({
     },
     btn: {
         width: '9vw',
-        left: '11.5vw',
+        left: '12vw',
         position: 'fixed',
-        bottom: '13.5vh',
+        bottom: '15.5vh',
         height: '6vh',
         fontSize: 'small',
     },
