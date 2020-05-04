@@ -79,9 +79,6 @@ const NewTreat = inject("MainStore", "InputStore")(observer((props) => {
             </Button>
             }
 
-            {/* <Button onClick={setNewTreat} className={classes.btn} variant="contained" color="primary">
-                Finish
-            </Button> */}
             
         </div>
         <DialogActions>
