@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 // import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
 import { makeStyles } from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
+import EditIcon from '@material-ui/icons/Edit';
 import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -22,12 +24,12 @@ const useStyles = makeStyles((theme) => ({
             position: 'inherit',
         }
     },
-
-    btn: {
-        minWidth: '15vw',
-        fontSize: 'small',
-        padding: '5px',
+    icon: {
+        fontSize: 'small'
+        
     },
+    
+
 }));
 
 
@@ -38,14 +40,21 @@ const Symptom = inject("MainStore", "InputStore")(observer((props) => {
     const [every, setEvery] = useState(props.sym.freq[1])
 
     const dropIt = () => {
-
         props.drop(props.sym, props.i)
+    }
+
+    const setFreq = async () => {
+        let newTimes = await prompt(`set number of times per unit`)
+        setTimes(newTimes)
+        let newFreq = await prompt(`set unit (must be W / D / M)`)
+        setEvery(newFreq)
     }
 
     return (
         <div>
-            <span>{name}</span>
-            <span>{times} / {every}</span>
+            <span>{name}  </span>
+            <span>  {times} / {every} </span>
+            <EditIcon onClick={setFreq} className={classes.icon}/>
             <span onClick={dropIt}>   <b>X</b></span>
         </div>
     )
