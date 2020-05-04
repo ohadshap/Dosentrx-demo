@@ -5,6 +5,7 @@ import tips from './Tips.json'
 export class MainStore {
     @observable Diseases = [...data]
     @observable curKinds
+    @observable curDisease
     @observable relevantKind
     @observable PatientId
     @observable PatientName
@@ -41,6 +42,7 @@ export class MainStore {
         for(let des of this.Diseases) {
             if(des.title === diseaseTitle) {
                 this.curKinds = des.kinds
+                this.curDisease = des.title
                 return des.kinds
             }
         }
@@ -67,11 +69,14 @@ export class MainStore {
         }
     }
 
-    @action addTip = (newTip) => {
-        if(this.allTips.includes(newTip) ){
-            console.log(newTip)
-            this.Tips.push(newTip)
+    @action addTip = (newTips, med) => {
+        for(let t of newTips) {
+            console.log(t)
+            let theTip = {name: t.name, med: med}
+            this.Tips.push(theTip)
         }
+        
+        
     }
 
 }

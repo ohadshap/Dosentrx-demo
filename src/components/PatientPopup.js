@@ -9,7 +9,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 
 const useStyles = makeStyles((theme) => ({
     container: {
-        justifyContent: 'center',
+        textAlign: 'center',
         '& > *': {
             margin: theme.spacing(1),
         }

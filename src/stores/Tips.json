@@ -1,9 +1,9 @@
 [
-    "Take at least one hour after eating food. Do not eat for up to 2 hours after taking pill.",
-    "Take the pill with food for better effect.",
-    "Do not chew, divide, dissolve or crush the pill. Swallow whole.",
-    "You can take the pill with or without food.",
-    "Take the pill on empty stomach for better effect.",
-    "Eating grapefruit or drinking grapefruit juice while you're taking your medication is not recommended!",
-    "The pill contains lactose. Consult your doctor if you have  an intolerance to some sugars."
+    {"name": "Take at least one hour after eating food. Do not eat for up to 2 hours after taking pill."},
+    {"name": "Take the pill with food for better effect."},
+    {"name": "Do not chew, divide, dissolve or crush the pill. Swallow whole."},
+    {"name": "You can take the pill with or without food."},
+    {"name": "Take the pill on empty stomach for better effect."},
+    {"name": "Eating grapefruit or drinking grapefruit juice while you're taking your medication is not recommended!"},
+    {"name": "The pill contains lactose. Consult your doctor if you have  an intolerance to some sugars."}
 ]

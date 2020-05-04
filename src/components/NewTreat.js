@@ -30,12 +30,21 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 'small',
         padding: '5px',
     },
+    btnFinish: {
+        minWidth: '15vw',
+        fontSize: 'small',
+        padding: '5px',
+        color: 'green',
+        '&:hover': {
+            backgroundColor: 'lightgreen',
+        }
+    }
 }));
 
 const NewTreat = inject("MainStore", "InputStore")(observer((props) => { 
     const classes = useStyles();
     const [kinds, setKinds] = useState([])
-    const [disease, setDisease] = useState(' ')
+    const [disease, setDisease] = useState(null)
     const [show, setShow] = useState(false)
     
     const setNewTreat = () => {
@@ -82,7 +91,7 @@ const NewTreat = inject("MainStore", "InputStore")(observer((props) => {
             
         </div>
         <DialogActions>
-            <Button onClick={setNewTreat} className={classes.btn}  color="primary">
+            <Button onClick={setNewTreat} className={classes.btnFinish}>
                 Finish
             </Button>
 

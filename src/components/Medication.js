@@ -14,6 +14,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import Symptom from './Symptom'
+import Tip from './Tip'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -30,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     },
     root: {
         margin: 'auto',
-        width: '50%',
+        width: '80%',
         '& > *': {
             width: '100%'
         }
@@ -39,13 +41,14 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(1, 2),
     },
     list: {
-        width: 200,
+        width: '100%',
         height: 230,
         backgroundColor: theme.palette.background.paper,
         overflow: 'auto',
     },
     button: {
         margin: theme.spacing(0.5, 0),
+        width: '40%'
     },
     btn: {
         minWidth: '15vw',
@@ -74,19 +77,21 @@ const Medication = inject("MainStore", "InputStore")(observer((props) => {
     const classes = useStyles();
 
     const [checked, setChecked] = useState([]);
+    const [checkedTips, setCheckedTips] = useState([]);
     const [left, setLeft] = useState(props.data.sympt);
     const [right, setRight] = useState([]);
-    const [med, setMed] = useState(' ');
+    const [med, setMed] = useState(null);
     const [show, setShow] = useState(false)
     const [showSymp, setShowSymp] = useState(false)
-    const [tip, setTip] = useState(' ');
+    const [tipList, setTipList] = useState(props.MainStore.allTips)
+    const [tip, setTip] = useState([]);
 
     const leftChecked = intersection(checked, left);
     const rightChecked = intersection(checked, right);
+    const tipsChecked = intersection(checked, tipList);
 
     const inputHandler = (e) => {
-        const inp = props.InputStore
-        inp.handleInput(e.target.name, e.target.value)
+        props.InputStore.handleInput(e.target.name, e.target.value)
         if(e.target.name === "med") {
             setMed(e.target.value) 
         } else {
@@ -101,11 +106,8 @@ const Medication = inject("MainStore", "InputStore")(observer((props) => {
 
     const addDetails = () => {
         console.log(tip)
-        console.log(props.InputStore.tip)
-        console.log(med)
-        console.log(props.InputStore.med)
         props.MainStore.addMed(med) 
-        props.MainStore.addTip(tip)
+        // props.MainStore.addTip(tip)
         setShowSymp(true)
     }
 
@@ -136,10 +138,25 @@ const Medication = inject("MainStore", "InputStore")(observer((props) => {
         setChecked(not(checked, leftChecked));
     };
 
-    const handleCheckedLeft = () => {
-        setLeft(left.concat(rightChecked));
-        setRight(not(right, rightChecked));
-        setChecked(not(checked, rightChecked));
+    const handleCheckedTips = () => {
+        setTip(tip.concat(tipsChecked))
+        setTipList(not(tipList, tipsChecked))
+        setChecked(not(checked, tipsChecked));
+        props.MainStore.addTip(tipsChecked, med)
+        console.log(tipsChecked)
+    }
+
+    const handleTips = (datum, i) => {
+        setTipList([...tipList, {name: datum.name}]);
+        let s = tip.splice(i, 1)
+        setTip(tip);
+
+    }
+
+    const handleCheckedLeft = (datum, i) => { 
+        setLeft([...left, {name: datum.name, freq: datum.freq}]);
+        let s = right.splice(i, 1)
+        setRight(right);
     };
 
     const customList = (title, items) => (
@@ -197,22 +214,36 @@ const Medication = inject("MainStore", "InputStore")(observer((props) => {
                 renderInput={(params) => <TextField name="med" {...params} value={med} onChange={inputHandler} label="Medication" variant="outlined" />}
             />
 
-            <Autocomplete
-                options={props.MainStore.allTips}
-                className={classes.autocomp}
-                getOptionLabel={(option) => option}
-                style={{ width: 300 }}
-                onSelect={inputHandler}
-                renderInput={(params) => <TextField name="tip" {...params} onChange={inputHandler} label="Tips" variant="outlined" />}
-            />
+            {
+                med ?
+                <Grid container spacing={2} justify="center" alignItems="center" className={classes.root}>
+                    <Grid item>{customList('Tips', tipList)}</Grid>
+                    <Button
+                        variant="outlined"
+                        size="small"
+                        className={classes.button}
+                        onClick={handleCheckedTips}
+                        disabled={tipsChecked.length === 0}
+                        aria-label="move selected right"
+                        >
+                        add
+                    </Button>
 
-            {/* <TextField  className={classes.autocomp} label="Tips" variant="outlined"/> */}
+                </Grid> : null
+            }
 
-            <Grid container spacing={2} justify="center" alignItems="center" className={classes.root}>
-                <Grid item>{customList('Symptoms', left)}</Grid>
-                
-                <Grid item>
-                    <Grid container direction="column" alignItems="center">
+            {
+                tip.length ?
+                tip.map((t,i) => <Tip i={i} drop={handleTips} t={t}/>) :
+                null
+            }
+
+
+            {
+                tip.length ?
+                <Grid container spacing={2} justify="center" alignItems="center" className={classes.root}>
+                    <Grid item>{customList('Symptoms', left)}</Grid>
+                    
                     <Button
                         variant="outlined"
                         size="small"
@@ -224,24 +255,12 @@ const Medication = inject("MainStore", "InputStore")(observer((props) => {
                         add
                     </Button>
 
-                    <Button
-                        variant="outlined"
-                        size="small"
-                        className={classes.button}
-                        onClick={handleCheckedLeft}
-                        disabled={rightChecked.length === 0}
-                        aria-label="move selected left"
-                        >
-                        drop
-                    </Button>
+                </Grid> : 
+                null
+            }
 
-                    </Grid>
-                </Grid>
-                <Grid item>{customList('Chosen Symptoms', right)}</Grid>
-            </Grid>
-
-            {showSymp ?
-                right.map(s => <p>{s.name} {s.freq[0]} / {s.freq[1]}</p>) :
+            {right.length ?
+                right.map((s,i) => <Symptom i={i} drop={handleCheckedLeft} sym={s}/>) :
                 null
             }
 
@@ -249,9 +268,9 @@ const Medication = inject("MainStore", "InputStore")(observer((props) => {
             <Button onClick={addNewMed} className={classes.btn} variant="contained" color="primary">
                 Add Medecation
             </Button> :
-             <Button onClick={addDetails} className={classes.btn} variant="contained" color="primary">
-             Enter Details
-         </Button>
+            <Button onClick={addDetails} className={classes.btn} variant="contained" color="primary">
+                Done!
+            </Button>
             }
 
             {show ?

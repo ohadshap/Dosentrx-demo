@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import DialogActions from '@material-ui/core/DialogActions';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -28,6 +29,15 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 'small',
         padding: '5px',
     },
+    btnFinish: {
+        minWidth: '15vw',
+        fontSize: 'small',
+        padding: '5px',
+        color: 'green',
+        '&:hover': {
+            backgroundColor: 'lightgreen',
+        }
+    }
 }));
 
 
@@ -52,21 +62,22 @@ const Summary = inject("MainStore", "InputStore")(observer((props) => {
         <DialogContent>
         <div className={classes.container}>
             <b>Summary:</b>
-            {/* <TextField  className={classes.root} label="Patient's ID" />
-            <TextField  className={classes.root} label="Patient's Name" />
-            <TextField  className={classes.root} label="Patient's Phone Number" /> */}
             <div className={classes.root}>
                 <p>Patient Id: {props.MainStore.PatientId}</p>
                 <p>Patient's Name: {props.MainStore.PatientName}</p>
                 <p>Patient Phone Number: {props.MainStore.PatientPhone}</p>
-                <p>Medications: {props.MainStore.Meds.map((m,i) => {return <p>{`${m}: Tip: ${props.MainStore.Tips[i]}`}</p>})}</p>
+                <p>{props.MainStore.Tips.map(t => {return <p><b>{t.med}</b> : {t.name}</p>})}</p>
             </div>
-            <Button onClick={confirm} className={classes.btn} variant="contained" color="primary">
-                Confirm
-            </Button>
+            
         
             
         </div>
+        <DialogActions>
+            <Button onClick={confirm} className={classes.btnFinish} >
+                Confirm
+            </Button>
+
+        </DialogActions>
         </DialogContent>
     )
 }))
