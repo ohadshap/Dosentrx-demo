@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 // import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
 import { makeStyles } from '@material-ui/core/styles';
+import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Summary = inject("MainStore", "InputStore")(observer((props) => { 
     const classes = useStyles();
+    const [open, setOpen] = useState(true);
 
     const confirm = () => {
         props.MainStore.goHome()
@@ -42,9 +44,12 @@ const Summary = inject("MainStore", "InputStore")(observer((props) => {
         props.InputStore.diseaseKind = null
         props.InputStore.med = null
         props.InputStore.tip = null
+        setOpen(false);
+        props.close()
     }
 
     return (
+        <DialogContent>
         <div className={classes.container}>
             <b>Summary:</b>
             {/* <TextField  className={classes.root} label="Patient's ID" />
@@ -62,6 +67,7 @@ const Summary = inject("MainStore", "InputStore")(observer((props) => {
         
             
         </div>
+        </DialogContent>
     )
 }))
 export default Summary

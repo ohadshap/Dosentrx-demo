@@ -5,6 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Button from '@material-ui/core/Button';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 import Medication from './Medication';
 import DiseaseKind from './DiseaseKind'
 
@@ -57,6 +59,7 @@ const NewTreat = inject("MainStore", "InputStore")(observer((props) => {
     }
 
     return (
+        <DialogContent>
         <div className={classes.container}>
             {/* Im New Treat */}
             <Autocomplete
@@ -76,11 +79,18 @@ const NewTreat = inject("MainStore", "InputStore")(observer((props) => {
             </Button>
             }
 
-            <Button onClick={setNewTreat} className={classes.btn} variant="contained" color="primary">
+            {/* <Button onClick={setNewTreat} className={classes.btn} variant="contained" color="primary">
                 Finish
-            </Button>
+            </Button> */}
             
         </div>
+        <DialogActions>
+            <Button onClick={setNewTreat} className={classes.btn}  color="primary">
+                Finish
+            </Button>
+
+        </DialogActions>
+        </DialogContent>
     )
 }))
 export default NewTreat

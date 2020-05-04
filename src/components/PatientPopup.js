@@ -4,6 +4,8 @@ import { observer, inject } from 'mobx-react'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -36,6 +38,12 @@ const PatientPopup = inject("MainStore", "InputStore")(observer((props) => {
     const [name, setName] = useState(props.InputStore.name)
     const [num, setNum] = useState(props.InputStore.num)
     const [pId, setPid] = useState(props.InputStore.pId)
+    const [open, setOpen] = useState(false);
+    
+    const handleClose = () => {
+      setOpen(false);
+      props.close()
+    };
 
     const inputHandler = (e) => {
         const inp = props.InputStore
@@ -55,6 +63,7 @@ const PatientPopup = inject("MainStore", "InputStore")(observer((props) => {
     }
 
     return (
+        <DialogContent>
         <div className={classes.container}>
             {/* Im Patient Popup */}
             <TextField name="pId" type="number" inputProps={{min: 0, style: { textAlign: 'center' }}}
@@ -69,18 +78,31 @@ const PatientPopup = inject("MainStore", "InputStore")(observer((props) => {
                 value={num} onChange={inputHandler}  className={classes.root} 
                 label="Patient's Phone Number" />
             
-            <Button onClick={setNewPat} className={classes.btn} variant="contained" color="primary">
+            {/* <Button onClick={setNewPat} className={classes.btn} variant="contained" color="primary">
                 Therapy
-            </Button>
+            </Button> */}
 
-            <Button className={classes.btn} variant="contained">Cancel</Button>
+            {/* <Button className={classes.btn} variant="contained">Cancel</Button>
             
             <Button className={classes.btn} variant="contained" color="primary">
                 Create Setup
-            </Button>
+            </Button> */}
         
             
         </div>
+        <DialogActions>
+           <Button onClick={setNewPat} className={classes.btn}  color="primary">
+                Therapy
+           </Button>
+
+          <Button onClick={handleClose} className={classes.btn} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleClose} className={classes.btn} color="primary">
+          Create Setup
+          </Button>
+        </DialogActions>
+        </DialogContent>
     )
 }))
 export default PatientPopup

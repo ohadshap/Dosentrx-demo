@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 // import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import pic from '../assets/img/background.jpg'
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -15,17 +14,21 @@ const useStyles = makeStyles((theme) => ({
 
     root: {
         display: 'block',
+        width: '100vw',
+        height: '100vh',
         textAlign: 'center',
         paddingBottom: '0px',
         '& > *': {
             position: 'inherit',
         }
     },
-
     btn: {
-        minWidth: '15vw',
+        width: '9vw',
+        left: '11.5vw',
+        position: 'fixed',
+        bottom: '13.5vh',
+        height: '6vh',
         fontSize: 'small',
-        padding: '5px',
     },
 }));
 
@@ -33,16 +36,14 @@ const useStyles = makeStyles((theme) => ({
 const Base = inject("MainStore", "InputStore")(observer((props) => { 
     const classes = useStyles();
 
+    const addNewPatient = () => {
+        props.MainStore.goNext()
+    }
 
     return (
         <div className={classes.container}>
-            <img src="/Users/Ohad/Desktop/code/Dosentrx-demo/dosentrx/src/assets/img/background.jpg" />
-            {/* <div className={classes.root}>
-            
-            </div> */}
-            
-        
-            
+            <img className={classes.root} src={pic} />
+            <div className={classes.btn} onClick={addNewPatient}></div>
         </div>
     )
 }))

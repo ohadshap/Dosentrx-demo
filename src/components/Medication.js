@@ -30,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
     },
     root: {
         margin: 'auto',
+        width: '50%',
+        '& > *': {
+            width: '100%'
+        }
     },
     cardHeader: {
         padding: theme.spacing(1, 2),
@@ -217,7 +221,7 @@ const Medication = inject("MainStore", "InputStore")(observer((props) => {
                         disabled={leftChecked.length === 0}
                         aria-label="move selected right"
                         >
-                        &gt;
+                        add
                     </Button>
 
                     <Button
@@ -228,7 +232,7 @@ const Medication = inject("MainStore", "InputStore")(observer((props) => {
                         disabled={rightChecked.length === 0}
                         aria-label="move selected left"
                         >
-                        &lt;
+                        drop
                     </Button>
 
                     </Grid>
