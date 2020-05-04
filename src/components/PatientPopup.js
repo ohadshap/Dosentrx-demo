@@ -98,9 +98,6 @@ const PatientPopup = inject("MainStore", "InputStore")(observer((props) => {
           <Button onClick={handleClose} className={classes.btn} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} className={classes.btn} color="primary">
-          Create Setup
-          </Button>
         </DialogActions>
         </DialogContent>
     )
